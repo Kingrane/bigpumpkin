@@ -1,3 +1,5 @@
+const socket = io(); // Подключение к серверу
+
 document.addEventListener("DOMContentLoaded", () => {
     const startScreen = document.getElementById("start-screen");
     const createGameScreen = document.getElementById("create-game-screen");
@@ -14,31 +16,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const gameCodeSpan = document.getElementById("game-code");
     const gameCodeInput = document.getElementById("game-code-input");
 
-    let gameCode = "";
-    let players = [];
     let isGameCreator = false;
 
-    // Генерация кода игры из 4 заглавных букв
-    function generateGameCode() {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let code = "";
-        for (let i = 0; i < 4; i++) {
-            const randomIndex = Math.floor(Math.random() * letters.length);
-            code += letters[randomIndex];
-        }
-        return code;
-    }
-
-    // Показать экран создания игры
+    // Создание новой игры
     createGameBtn.addEventListener("click", () => {
-        gameCode = generateGameCode();
-        gameCodeSpan.textContent = gameCode;
-        startScreen.style.display = "none";
-        createGameScreen.style.display = "block";
-        isGameCreator = true;
+        socket.emit('createGame');
     });
 
-    // Присоединение к игре по коду
+    // Присоединение к игре
     joinGameBtn.addEventListener("click", () => {
         startScreen.style.display = "none";
         joinGameScreen.style.display = "block";
@@ -49,33 +34,41 @@ document.addEventListener("DOMContentLoaded", () => {
         const playerName = playerNameInput.value.trim();
         const enteredCode = gameCodeInput.value.trim().toUpperCase();
 
-        if (!playerName || enteredCode !== gameCode) {
-            alert("Неверный код или имя не введено. Попробуйте снова.");
+        if (!playerName || !enteredCode) {
+            alert("Имя и код игры должны быть заполнены.");
             return;
         }
 
-        players.push(playerName);
-        joinGameScreen.style.display = "none";
+        socket.emit('joinGame', { gameCode: enteredCode, playerName });
+    });
+
+    // Обработка успешного создания игры
+    socket.on('gameCreated', (gameCode) => {
+        gameCodeSpan.textContent = gameCode;
+        startScreen.style.display = "none";
+        createGameScreen.style.display = "block";
+        isGameCreator = true;
+    });
+
+    // Обработка присоединения игрока
+    socket.on('playerJoined', (players) => {
         waitingScreen.style.display = "block";
+        console.log("Игроки в игре:", players);
     });
 
-    // Начало игры после того, как создатель нажмет кнопку
+    // Начало игры после нажатия кнопки создателя
     startGameBtn.addEventListener("click", () => {
-        if (players.length === 0) {
-            alert("Необходимо, чтобы хотя бы один игрок присоединился!");
-            return;
-        }
+        if (!isGameCreator) return;
 
-        createGameScreen.style.display = "none";
-        questionScreen.style.display = "block";
-
-        // Здесь можно начать игру: например, отправить первый вопрос и включить логику ответов
-        startGame();
+        const gameCode = gameCodeSpan.textContent;
+        socket.emit('startGame', gameCode);
     });
 
-    // Запуск игрового процесса (примерно, можно добавить любые правила игры)
-    function startGame() {
-        console.log("Игра началась с игроками:", players);
-        // Здесь мы можем добавить логику для показа вопросов, ответов, голосования и т.д.
-    }
+    // Начало игры для всех игроков
+    socket.on('gameStarted', () => {
+        createGameScreen.style.display = "none";
+        waitingScreen.style.display = "none";
+        questionScreen.style.display = "block";
+        // Здесь можно добавить логику для показа вопросов
+    });
 });
