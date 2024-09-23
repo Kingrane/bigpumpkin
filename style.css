@@ -1,0 +1,175 @@
+/* Сброс стилей для лучшей кросс-браузерной совместимости */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Общие стили для всего тела страницы */
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1a0024 0%, #33004d 100%);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Контейнер игры */
+#game-container {
+    background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+    border-radius: 10px;
+    box-shadow: 0 0 50px rgba(100, 100, 200, 0.8);
+    width: 100%;
+    max-width: 500px;
+    border: 3px solid #655498;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Заголовки */
+h1, h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Стиль текста и вводов */
+p {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* Ввод имени и кода игры */
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Кнопки */
+button {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #45a049 0%, #3e8e41 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    #game-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    input[type="text"], textarea {
+        font-size: 14px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    h1, h2 {
+        font-size: 22px;
+    }
+}
+
+/* Стиль для вопроса */
+#current-question {
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* Стиль для вариантов голосования */
+#answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#answer-options div {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+#answer-options div:hover {
+    border-color: #4CAF50;
+}
+
+/* Стиль для результатов */
+#round-results {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Анимации */
+#game-container {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Дополнительные стили для экранов создания и присоединения к игре */
+
+/* Стиль кода игры */
+#game-code, #game-code-input {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+    letter-spacing: 4px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Экран ожидания */
+#waiting-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

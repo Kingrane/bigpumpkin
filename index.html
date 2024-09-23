@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Смехлыст</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Экран создания или присоединения к игре -->
+        <div id="start-screen">
+            <h1>Смехлыст</h1>
+            <p>Выберите опцию:</p>
+            <button id="create-game-btn">Создать игру</button>
+            <button id="join-game-btn">Присоединиться к игре</button>
+        </div>
+
+        <!-- Экран для создания игры -->
+        <div id="create-game-screen" style="display:none;">
+            <h2>Создать игру</h2>
+            <p>Ваш код для присоединения: <span id="game-code"></span></p>
+            <p>Передайте этот код друзьям, чтобы они могли подключиться.</p>
+            <button id="start-game-btn">Начать игру</button>
+        </div>
+
+        <!-- Экран для присоединения к игре -->
+        <div id="join-game-screen" style="display:none;">
+            <h2>Присоединение к игре</h2>
+            <input type="text" id="player-name" placeholder="Введите ваше имя">
+            <input type="text" id="game-code-input" placeholder="Введите код игры">
+            <button id="join-game-confirm-btn">Присоединиться</button>
+        </div>
+
+        <!-- Экран ожидания -->
+        <div id="waiting-screen" style="display:none;">
+            <h2>Ожидание начала игры</h2>
+            <p>Ожидание, пока создатель игры начнет игру...</p>
+        </div>
+
+        <!-- Экран вопросов и голосований (остается без изменений на этом этапе) -->
+        <div id="question-screen" style="display:none;">
+            <h2>Вопрос для вас:</h2>
+            <p id="current-question">Тут будет вопрос...</p>
+            <textarea id="player-answer" placeholder="Введите ваш ответ"></textarea>
+            <button id="submit-answer-btn">Отправить ответ</button>
+        </div>
+
+        <!-- Экран результатов (без изменений) -->
+        <div id="result-screen" style="display:none;">
+            <h2>Результаты раунда</h2>
+            <p id="round-results">Тут будут результаты...</p>
+            <button id="next-round-btn">Следующий раунд</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
