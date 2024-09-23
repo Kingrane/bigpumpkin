@@ -6,17 +6,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const joinGameScreen = document.getElementById("join-game-screen");
     const waitingScreen = document.getElementById("waiting-screen");
     const questionScreen = document.getElementById("question-screen");
+    const resultsScreen = document.getElementById("results-screen");
 
     const createGameBtn = document.getElementById("create-game-btn");
     const joinGameBtn = document.getElementById("join-game-btn");
     const startGameBtn = document.getElementById("start-game-btn");
     const joinGameConfirmBtn = document.getElementById("join-game-confirm-btn");
+    const addQuestionBtn = document.getElementById("add-question-btn");
+    const submitAnswerBtn = document.getElementById("submit-answer");
+    const nextRoundBtn = document.getElementById("next-round-btn");
 
     const playerNameInput = document.getElementById("player-name");
     const gameCodeSpan = document.getElementById("game-code");
     const gameCodeInput = document.getElementById("game-code-input");
+    const questionInput = document.getElementById("question-input");
+    const currentQuestion = document.getElementById("current-question");
+    const playerAnswer = document.getElementById("player-answer");
+    const answersList = document.getElementById("answers-list");
+    const resultAnswers = document.getElementById("result-answers");
 
-    let isGameCreator = false;
+    let gameCode = "";
+    let players = [];
+    let questions = [];
+    let roundAnswers = {};
 
     // Создание новой игры
     createGameBtn.addEventListener("click", () => {
@@ -33,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     joinGameConfirmBtn.addEventListener("click", () => {
         const playerName = playerNameInput.value.trim();
         const enteredCode = gameCodeInput.value.trim().toUpperCase();
-
+        
         if (!playerName || !enteredCode) {
             alert("Имя и код игры должны быть заполнены.");
             return;
@@ -42,33 +54,78 @@ document.addEventListener("DOMContentLoaded", () => {
         socket.emit('joinGame', { gameCode: enteredCode, playerName });
     });
 
+    // Добавление вопроса
+    addQuestionBtn.addEventListener("click", () => {
+        const question = questionInput.value.trim();
+        if (question) {
+            questions.push(question);
+            questionInput.value = "";
+            updateQuestionsList();
+        }
+    });
+
+    function updateQuestionsList() {
+        const questionsList = document.getElementById("questions-list");
+        questionsList.innerHTML = "";
+        questions.forEach((q, index) => {
+            questionsList.innerHTML += `<p>${index + 1}. ${q}</p>`;
+        });
+    }
+
     // Обработка успешного создания игры
-    socket.on('gameCreated', (gameCode) => {
+    socket.on('gameCreated', (code) => {
+        gameCode = code;
         gameCodeSpan.textContent = gameCode;
         startScreen.style.display = "none";
         createGameScreen.style.display = "block";
-        isGameCreator = true;
     });
 
     // Обработка присоединения игрока
-    socket.on('playerJoined', (players) => {
+    socket.on('playerJoined', (playersList) => {
+        players = playersList;
         waitingScreen.style.display = "block";
-        console.log("Игроки в игре:", players);
     });
 
-    // Начало игры после нажатия кнопки создателя
+    // Начало игры
     startGameBtn.addEventListener("click", () => {
-        if (!isGameCreator) return;
-
-        const gameCode = gameCodeSpan.textContent;
-        socket.emit('startGame', gameCode);
+        if (questions.length === 0) {
+            alert("Добавьте хотя бы один вопрос!");
+            return;
+        }
+        socket.emit('startGame', { gameCode, questions });
     });
 
-    // Начало игры для всех игроков
+    // Начало вопроса для всех игроков
     socket.on('gameStarted', () => {
         createGameScreen.style.display = "none";
         waitingScreen.style.display = "none";
         questionScreen.style.display = "block";
-        // Здесь можно добавить логику для показа вопросов
+        showQuestion();
     });
-});
+
+    // Показать вопрос
+    function showQuestion() {
+        const questionIndex = Math.floor(Math.random() * questions.length);
+        currentQuestion.textContent = questions[questionIndex];
+        roundAnswers = {}; // Сброс ответов для нового вопроса
+    }
+
+    // Отправка ответа
+    submitAnswerBtn.addEventListener("click", () => {
+        const answer = playerAnswer.value.trim();
+        if (answer) {
+            const question = currentQuestion.textContent;
+            socket.emit('submitAnswer', { question, answer });
+            playerAnswer.value = "";
+        }
+    });
+
+    // Обработка получения ответов
+    socket.on('receiveAnswers', (answers) => {
+        answersList.style.display = "block";
+        answersList.innerHTML = "";
+        answers.forEach(a => {
+            answersList.innerHTML += `<p>${a}</p>`;
+        });
+        // Позволить голосовать
+        displayVoteOptions(
