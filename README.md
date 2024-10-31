@@ -1,1 +1,1 @@
-Копия смехлыста
+site for memecoin BIGPUMPKIN
