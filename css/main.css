@@ -1,0 +1,317 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Dela Gothic One', serif;
+}
+
+body {
+  background-color: rgb(30, 16, 3);
+  color: rgb(255, 187, 115);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+
+.main-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Intro Section */
+.intro-section {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(rgb(60, 42, 25), rgb(45, 31, 18));
+  padding: 60px 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.6);
+}
+
+.side-image img {
+  width: 220px;
+  margin-right: 20px;
+}
+
+.intro-content {
+  flex-grow: 1;
+}
+
+.intro-content h1 {
+  font-size: 3em;
+  color: rgb(255, 163, 26);
+  font-family: 'Dela Gothic One', sans-serif;
+}
+
+.intro-content p {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: rgb(255, 246, 232);
+}
+
+.buy-button,
+.chart-button {
+  display: inline-block;
+  margin: 15px;
+  padding: 10px 30px;
+  font-size: 1em;
+  color: rgb(26, 17, 11);
+  background-color: rgb(255, 115, 21);
+  border-radius: 30px;
+  border: none;
+  box-shadow: 4px 6px 0px rgba(0, 0, 0, 1);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover,
+.chart-button:hover {
+  background-color: rgb(204, 90, 13);
+  transform: scale(1.05);
+}
+
+/* Middle Gallery */
+.middle-gallery {
+  text-align: center;
+  padding: 40px;
+}
+
+.middle-gallery h2 {
+  font-size: 2.5em;
+  color: rgb(255, 177, 94);
+  margin-bottom: 20px;
+}
+
+.center-images {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.center-images img {
+  width: 250px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.center-images img:hover {
+  transform: scale(1.15);
+}
+
+/* Roadmap Section */
+.roadmap {
+  background-color: rgb(62, 41, 28);
+  padding: 40px;
+  border-radius: 15px;
+  margin: 20px 0;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.roadmap h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: rgb(255, 115, 21);
+}
+
+.roadmap .stage {
+  background-color: rgb(255, 246, 232);
+  color: rgb(62, 41, 28);
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.stage:hover {
+    transform: scale(1.05);
+}
+
+/* Tokenomics */
+.tokenomics {
+  padding: 40px;
+  border-radius: 15px;
+  margin: 20px 0;
+  color: rgb(255, 177, 94);
+  text-align: center;
+}
+
+.tokenomics h2 {
+  font-size: 4.5em;
+  margin-bottom: 20px;
+}
+
+/* About Team Section */
+.about-team {
+  background-color: rgb(45, 31, 18);
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+}
+
+.about-team h2 {
+  font-size: 3.5em;
+  color: rgb(255, 177, 94);
+}
+
+.about-team p {
+  font-size: 1.2em;
+  color: rgb(255, 246, 232);
+  margin: 20px 0;
+}
+
+.team-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pump-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.pump-images img {
+  width: 300px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.pump-images img:hover {
+  transform: scale(1.1);
+}
+
+.team-images img {
+  width: 150px;
+  border-radius: 15px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.team-images img:hover {
+  transform: scale(1.1);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgb(26, 17, 11);
+}
+
+.footer .buy-donot-button {
+  padding: 15px 30px;
+  background-color: rgb(255, 115, 21);
+  color: rgb(26, 17, 11);
+  font-size: 1.2em;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.footer .buy-donot-button:hover {
+  background-color: rgb(204, 90, 13);
+  transform: scale(1.05);
+}
+
+.footer p {
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: rgb(255, 177, 94);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  /* Adjustments for tablets */
+  .intro-section {
+    flex-direction: column;
+    padding: 40px 20px;
+  }
+
+  .side-image img {
+    width: 100%;
+    max-width: 300px;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .intro-content h1 {
+    font-size: 2.5em;
+  }
+
+  .intro-content p {
+    font-size: 1em;
+  }
+
+  .center-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .center-images img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+
+  .team-images,
+  .pump-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .team-images img,
+  .pump-images img {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Adjustments for mobile phones */
+  .intro-section {
+    padding: 30px 10px;
+  }
+
+  .intro-content h1 {
+    font-size: 2em;
+  }
+
+  .intro-content p {
+    font-size: 0.9em;
+  }
+
+  .buy-button,
+  .chart-button {
+    padding: 8px 20px;
+    font-size: 0.9em;
+  }
+
+  .middle-gallery h2 {
+    font-size: 2em;
+  }
+
+  .roadmap h2 {
+    font-size: 2em;
+  }
+
+  .tokenomics h2 {
+    font-size: 2.5em;
+  }
+
+  .about-team h2 {
+    font-size: 2.5em;
+  }
+
+  .footer .buy-donot-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
